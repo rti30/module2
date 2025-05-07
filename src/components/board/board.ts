@@ -26,45 +26,7 @@ export class Board {
 			}
 			return acc;
 		}, []);
-		this.fields[0][0].value = 1024;
-		this.fields[0][1].value = 1024;
-		/*   this.fields[0][0].value = 4;
-    this.fields[0][1].value = 8;
-    this.fields[0][2].value = 16;
-    this.fields[0][3].value = 32;
-    this.fields[0][4].value = 64;
-
-    this.fields[1][0].value = 128;
-    this.fields[1][1].value = 256;
-    this.fields[1][2].value = 512;
-    this.fields[1][3].value = 1024;
-    this.fields[1][4].value = 2048; */
-
-		/*        this.fields[0][0].value = 1024;
-    this.fields[0][1].value = 1024;
-    this.fields[0][2].value = 423;
-    this.fields[0][3].value = 12;
-    this.fields[0][4].value = 13;
-    this.fields[1][0].value = 52;
-    this.fields[1][1].value = 63;
-    this.fields[1][2].value = 523;
-    this.fields[1][3].value = 12;
-    this.fields[1][4].value = 11;
-    this.fields[2][0].value = 22;
-    this.fields[2][1].value = 234;
-    this.fields[2][2].value = 44;
-    this.fields[2][3].value = 62;
-    this.fields[2][4].value = 53;
-    this.fields[3][0].value = 4;
-    this.fields[3][1].value = 7;
-    this.fields[3][2].value = 5;
-    this.fields[3][3].value = 15;
-    this.fields[3][4].value = 18;
-    this.fields[4][0].value = 1;
-    this.fields[4][1].value = 8;
-    this.fields[4][2].value = 2;
-    this.fields[4][3].value = 3;
-    this.fields[4][4].value = 4; */
+		this.addNewValue();
 	}
 
 	public get fields() {
