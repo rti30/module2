@@ -1,0 +1,20 @@
+@use "sass:math";
+@use "sass:map";
+@use "@styles/init/_variables.scss" as *;
+@mixin respond($breakpoint, $direction: "min", $breakpoints: $breakpoints-default) {
+	@if not map.has-key($breakpoints, $breakpoint) {
+		@error "Брейкпоинт '#{$breakpoint}' не найден. Доступные варианты: #{map.keys($breakpoints)}";
+	}
+
+	$value: map.get($breakpoints, $breakpoint);
+
+	@if $direction == "max" {
+		@media (max-width: math.div($value, 1)) {
+			@content;
+		}
+	} @else {
+		@media (min-width: $value) {
+			@content;
+		}
+	}
+}

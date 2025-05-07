@@ -1,0 +1,24 @@
+{
+	"singleQuote": true,
+	"trailingComma": "all",
+	"useTabs": true,
+	"semi": true,
+	"bracketSpacing": true,
+	"printWidth": 100,
+	"endOfLine": "auto",
+	"overrides": [
+		{
+			"files": "*.html",
+			"options": {
+				"parser": "html"
+			}
+		},
+		{
+			"files": "*.scss",
+			"options": {
+				"parser": "scss",
+				"singleQuote": false
+			}
+		}
+	]
+}

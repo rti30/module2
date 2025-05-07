@@ -1,0 +1,24 @@
+@use "@styles/init/_mixins.scss" as *;
+.button {
+	background: #8f7a66;
+	color: #f9f6f2;
+	height: 32px;
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	padding: 2px 4px;
+	border: none;
+	font-weight: 500;
+	transition: background-color 0.2s;
+	font-size: 12px;
+	width: 100%;
+
+	&:hover {
+		background: #9f8b77;
+	}
+
+	@include respond(bigmobile) {
+		height: 36px;
+		font-size: 14px;
+		padding: 4px 8px;
+	}
+}

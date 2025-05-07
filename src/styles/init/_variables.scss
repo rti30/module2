@@ -1,0 +1,10 @@
+@use "sass:map";
+$breakpoints-default: (
+	"mobile": 375px,
+	"bigmobile": 480px,
+	"tablet": 768px,
+	"laptop": 1024px,
+	"desktop": 1280px,
+	"content-w": 1440px,
+	"max-w": 1920px,
+) !default;

@@ -1,0 +1,166 @@
+@use "@styles/init/_mixins.scss" as *;
+.header {
+	padding: 20px 0;
+	@include respond(tablet) {
+		padding: 48px 0 22px;
+	}
+	// .header__body
+	&__body {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+		grid-template-areas:
+			"title account"
+			"score record"
+			"rules rating"
+			"restart back";
+		align-items: center;
+		padding: 10px;
+		background: var(--bg-main);
+		border-radius: var(--border-radius);
+
+		@include respond(bigmobile) {
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-areas:
+				"title rating account"
+				"score record rules"
+				"restart back .";
+			grid-template-rows: auto auto auto;
+			gap: 10px;
+		}
+		@include respond(tablet) {
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: auto auto;
+			grid-template-areas:
+				"title account account rating rules"
+				"score  record  restart back back";
+		}
+	}
+
+	//.header__title
+	&__title {
+		grid-area: title;
+		margin: 0;
+		font-size: 20px;
+
+		@include respond(bigmobile) {
+			font-size: 22px;
+		}
+
+		@include respond(tablet) {
+			font-size: 24px;
+		}
+	}
+
+	//.header__rating
+	&__rating {
+		grid-area: rating;
+		@include respond(tablet) {
+			width: auto;
+			justify-self: end;
+		}
+	}
+
+	//.header__rules
+	&__rules {
+		grid-area: rules;
+		justify-self: stretch;
+
+		@include respond(bigmobile) {
+			justify-self: center;
+		}
+
+		@include respond(tablet) {
+			justify-self: end;
+			width: auto;
+		}
+	}
+
+	//.header__account
+	&__account {
+		grid-area: account;
+		min-width: 100px;
+		justify-self: end;
+		padding: 6px 8px;
+		background: #bbada0;
+		border-radius: var(--border-radius);
+		color: #eee4da;
+		font-size: 12px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		@include respond(bigmobile) {
+			padding: 8px 12px;
+		}
+		@include respond(tablet) {
+			font-size: 14px;
+		}
+	}
+
+	//.header__score
+	&__score {
+		grid-area: score;
+	}
+
+	//.header__record
+	&__record {
+		grid-area: record;
+	}
+
+	//.header__restart
+	&__restart {
+		grid-area: restart;
+		transition: background-color 0.3s ease 0s;
+	}
+
+	//.header__back
+	&__back {
+		grid-area: back;
+		&:disabled {
+			background-color: #bbada0;
+		}
+	}
+}
+
+.title {
+	font-size: 52px;
+	font-weight: 700;
+	color: var(--c-main);
+}
+.score {
+	background: #bbada0;
+	border-radius: var(--border-radius);
+	width: 100%;
+	text-align: center;
+	padding: 4px 0;
+	position: relative;
+
+	//.score__text
+	&__text {
+		color: #eee4da;
+		font-size: 10px;
+
+		@include respond(bigmobile) {
+			font-size: 12px;
+		}
+	}
+
+	//score__value
+	&__value {
+		color: var(--c-second);
+		font-size: 14px;
+		text-transform: uppercase;
+		font-weight: 500;
+		transition: color 0.3s ease 0s;
+		@include respond(bigmobile) {
+			font-size: 16px;
+		}
+		&.positive {
+			color: #26a69a;
+		}
+		&.negative {
+			color: #ef5350;
+		}
+	}
+}

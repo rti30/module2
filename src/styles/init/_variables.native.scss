@@ -1,0 +1,19 @@
+@use "@styles/init/_mixins.scss" as *;
+:root {
+	--font-family: "Ubuntu";
+	--font-size: 16px;
+	--main-weight: 400;
+	--c-main: #776e65;
+	--c-second: #fff;
+	--c-light: #9c69e2;
+	--bg-main: #faf8ef;
+	--border-radius: 4px;
+
+	--cell-size: 52px;
+	@include respond(bigmobile) {
+		--cell-size: 80px;
+	}
+	@include respond(tablet) {
+		--cell-size: 100px;
+	}
+}

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png" />
+		<link rel="manifest" href="site.webmanifest" />
+
+		<title>2048 — Игра в браузере онлайн</title>
+		<meta
+			name="description"
+			content="Игра 2048 онлайн: объединяйте числа, чтобы получить 2048! Удобное управление, таблица рекордов и советы для победы. Играйте бесплатно в браузере."
+		/>
+		<meta
+			name="keywords"
+			content="2048, игра 2048, онлайн 2048, головоломка, числа, стратегия, рекорды, бесплатно, браузерная игра"
+		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="2048" />
+		<meta property="og:title" content="2048 — Игра в браузере онлайн" />
+		<meta
+			property="og:description"
+			content="Игра 2048 онлайн: объединяйте числа, чтобы получить 2048! Удобное управление, таблица рекордов и советы для победы. Играйте бесплатно в браузере."
+		/>
+		<meta property="og:url" content="" />
+		<meta property="og:locale" content="ru" />
+		<meta property="og:image" content="og-image.jpg" />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700&display=swap"
+			media="print"
+			onload="this.media='all'"
+		/>
+		<script type="module" src="/src/main.ts"></script>
+	</head>
+
+	<body>
+		<div class="page">
+			<header class="header">
+				<div class="content-width">
+					<div class="header__body">
+						<h1 class="header__title title">2048</h1>
+						<button
+							aria-label="Рекорды"
+							type="button"
+							class="header__rating button open-popup-records"
+						>
+							Рекорды
+						</button>
+						<div class="header__account" id="username">User</div>
+						<button
+							aria-label="Правила"
+							class="button header__control open-popup-instructions"
+							id="control"
+						>
+							Правила
+						</button>
+						<div class="header__score score">
+							<div class="score__text">Счёт:</div>
+							<div id="score">
+								<span class="score__value">0</span>
+							</div>
+						</div>
+						<div class="header__record score">
+							<div class="score__text">Рекорд:</div>
+							<div id="record">
+								<span class="score__value">0</span>
+							</div>
+						</div>
+						<button aria-label="Сделать шаг назад" class="button header__back" disabled id="back">
+							Шаг назад
+						</button>
+						<button aria-label="Рестарт" class="button header__restart" id="restart">
+							Новая игра
+						</button>
+					</div>
+				</div>
+			</header>
+			<main class="main">
+				<section class="game">
+					<div class="content-width">
+						<div class="game2048" id="game2048">
+							<div class="game2048__board"></div>
+							<div class="game-message" aria-live="polite" hidden>
+								<div class="game-over">
+									<h2 class="game-message__title">Вы проиграли!</h2>
+									<button
+										aria-label="Рестарт"
+										type="button"
+										class="game-over__button button button-restart"
+									>
+										Начать заново
+									</button>
+								</div>
+								<div class="game-win">
+									<h2 class="game-message__title game-win__title">Вы выйграли!</h2>
+									<button
+										aria-label="Продолжить игру"
+										class="game-win__continue button"
+										type="button"
+									>
+										Иду на рекорд!
+									</button>
+									<button
+										aria-label="Рестар"
+										class="game-win__restart button button-restart"
+										type="button"
+									>
+										Начать заново
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+			<footer class="footer"></footer>
+		</div>
+		<div class="popup-overlay" hidden>
+			<div id="popup-rules" class="popup rules">
+				<button aria-label="Закрыть" class="popup-close button">&#x2715;</button>
+				<h2 class="popup-title rules__title">Правила</h2>
+				<div class="popup-content rules__content">
+					<section class="rules-target">
+						<h3 class="rules__sub-title">Цель игры</h3>
+						<p>
+							Объединять одинаковые числа, чтобы получить
+							<em class="rules__light">плитку 2048</em> (или больше).
+						</p>
+					</section>
+					<section class="rules-info">
+						<h3 class="rules__sub-title">Правила</h3>
+						<ul class="rules__list">
+							<li class="rules__item">
+								<h4 class="h3"><strong>Начало игры:</strong></h4>
+								На поле 4×4 появляются две плитки с числами
+								<strong>2</strong> (реже <strong>4</strong>).
+							</li>
+							<li class="rules__item">
+								<h4 class="h3"><strong>Механика движения:</strong></h4>
+								<p>
+									Каждый ход сдвигает все плитки в выбранном направлении (<strong
+										>вверх, вниз, влево, вправо</strong
+									>).
+								</p>
+								<p>
+									Если две плитки с одинаковым числом сталкиваются, они
+									<strong>объединяются в одну</strong> (например, <code>2 + 2 = 4</code>,
+									<code>4 + 4 = 8</code> и т. д.).
+								</p>
+							</li>
+							<li class="rules__item">
+								<h4 class="h3"><strong>Новые плитки:</strong></h4>
+								После каждого хода в случайной пустой клетке появляется новая плитка (<strong
+									>2</strong
+								>
+								или <strong>4</strong>).
+							</li>
+							<li class="rules__item">
+								<h4 class="h3"><strong>Конец игры:</strong></h4>
+								<p>
+									Если поле заполнено и нет возможных ходов для объединения плиток —
+									<strong>игра проиграна</strong>.
+								</p>
+								<p>Если получили <strong>2048</strong> — можно продолжить для большего рекорда.</p>
+							</li>
+						</ul>
+					</section>
+
+					<section class="rules-controls">
+						<h3 class="rules__sub-title">Управление</h3>
+
+						<h4 class="h3">1. Клавиатура</h4>
+						<p>Используйте <strong>стрелки</strong>:</p>
+						<ul class="rules__list">
+							<li class="rules__item"><b class="key">↑</b> (вверх) – сдвиг всех плиток вверх.</li>
+							<li class="rules__item"><b class="key">↓</b> (вниз) – сдвиг вниз.</li>
+							<li class="rules__item"><b class="key">←</b> (влево) – сдвиг влево.</li>
+							<li class="rules__item"><b class="key">→</b> (вправо) – сдвиг вправо.</li>
+						</ul>
+
+						<h4 class="h3 rules__sub-title">2. Мышка (тачскрин на смартфонах)</h4>
+						<ul class="rules__list">
+							<li class="rules__item"><strong>Зажмите</strong> левую кнопку мыши на поле.</li>
+							<li class="rules__item">
+								<strong>Перетащите</strong> в нужном направлении:
+								<ul>
+									<li class="rules__item">Вверх / вниз / влево / вправо.</li>
+								</ul>
+							</li>
+							<li class="rules__item">
+								<strong>Отпустите</strong> – плитки сдвинутся в выбранную сторону.
+							</li>
+						</ul>
+					</section>
+
+					<section class="rules-tips">
+						<h3 class="rules__title">Советы</h3>
+						<ul class="rules__list">
+							<li class="rules__item">
+								Старайтесь держать
+								<strong>самое большое число в углу</strong> (обычно в правом нижнем).
+							</li>
+							<li class="rules__item">
+								Не заполняйте строку/столбец с крупной плиткой мелкими числами.
+							</li>
+							<li>Планируйте ходы на несколько шагов вперёд.</li>
+						</ul>
+						<p>Удачи в достижении <span class="highlight">2048!</span></p>
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<div class="popup-overlay" hidden>
+			<div id="popup-record" class="popup popup-record">
+				<button aria-label="Закрыть" class="popup-close button">&#x2715;</button>
+				<h2 class="popup-title popup-record__title">Рекорды:</h2>
+				<div class="popup-content popup-record__content">
+					<table>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Игрок</th>
+								<th class="t-a-r">Рекорд</th>
+							</tr>
+						</thead>
+						<tbody id="body-record"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<ul id="message-list" class="message-list"></ul>
+	</body>
+</html>

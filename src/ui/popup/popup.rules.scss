@@ -1,0 +1,44 @@
+.rules {
+	p {
+		margin: 0 0 10px;
+	}
+	section {
+		margin: 0 0 40px;
+	}
+
+	// .rules__title
+	padding: 40px 20px;
+
+	&__title {
+		font-size: 24px;
+		font-weight: 700;
+		margin: 0 0 32px;
+	}
+
+	// .rules__sub-title
+	&__sub-title {
+		font-size: 18px;
+		margin: 0 0 24px;
+		font-weight: 700;
+	}
+
+	.h3 {
+		margin: 0 0 10px;
+	}
+
+	// .rules__light
+	&__light {
+		font-style: normal;
+		font-weight: 700;
+	}
+
+	// .rules__list
+	&__list {
+		margin: 0 0 18px;
+	}
+
+	// .rules__item
+	&__item {
+		margin: 0 0 10px;
+	}
+}

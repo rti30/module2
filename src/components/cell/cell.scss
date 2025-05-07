@@ -1,0 +1,158 @@
+@use "@styles/init/_mixins" as *;
+
+.cell {
+	width: var(--cell-size);
+	height: var(--cell-size);
+	background-color: #cdc1b4;
+	border-radius: var(--border-radius);
+	font-size: 24px;
+	font-weight: bold;
+	transition: all 0.2s ease;
+	@include respond(bigmobile) {
+		font-size: 34px;
+	}
+	@include respond(tablet) {
+		font-size: 40px;
+	}
+
+	//.cell__value
+	&__value {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #cdc1b4;
+		border: 1px solid #aba6a0;
+		border-radius: var(--border-radius);
+		&.merge {
+			animation: mergeAnimation 0.5s ease-out;
+		}
+		&.apear {
+			animation: appearAnimation 0.4s ease-out;
+		}
+		&.back {
+			animation: backAnimation 0.6s ease-out forwards;
+		}
+	}
+}
+
+.level-0 {
+	color: #9e9e9e;
+	background: #f5f5f5;
+}
+.level-1 {
+	color: #26a69a;
+	background: #e0f2f1;
+}
+.level-2 {
+	color: #29b6f6;
+	background: #e1f5fe;
+}
+.level-3 {
+	color: #1e88e5;
+	background: #bbdefb;
+}
+.level-4 {
+	color: #7e57c2;
+	background: #ede7f6;
+}
+.level-5 {
+	color: #ab47bc;
+	background: #f3e5f5;
+}
+.level-6 {
+	color: #ec407a;
+	background: #fce4ec;
+	font-size: 22px;
+	@include respond(bigmobile) {
+		font-size: 32px;
+	}
+	@include respond(tablet) {
+		font-size: 38px;
+	}
+}
+.level-7 {
+	color: #fb8c00;
+	background: #ffe0b2;
+	font-size: 22px;
+	@include respond(bigmobile) {
+		font-size: 32px;
+	}
+	@include respond(tablet) {
+		font-size: 38px;
+	}
+}
+.level-8 {
+	color: #ef5350;
+	background: #ffebee;
+	font-size: 22px;
+	@include respond(bigmobile) {
+		font-size: 32px;
+	}
+	@include respond(tablet) {
+		font-size: 38px;
+	}
+}
+.level-9 {
+	color: #ffa000;
+	background: #fff8e1;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	font-size: 20px;
+	@include respond(bigmobile) {
+		font-size: 30px;
+	}
+	@include respond(tablet) {
+		font-size: 36px;
+	}
+}
+.level-10 {
+	background: linear-gradient(135deg, #ff512f, #dd2476);
+	color: white;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	font-size: 20px;
+	@include respond(bigmobile) {
+		font-size: 30px;
+	}
+	@include respond(tablet) {
+		font-size: 36px;
+	}
+}
+
+.level-11 {
+	background: linear-gradient(135deg, #4776e6, #8e54e9);
+	color: white;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	font-size: 20px;
+	@include respond(bigmobile) {
+		font-size: 30px;
+	}
+	@include respond(tablet) {
+		font-size: 36px;
+	}
+}
+.level-12 {
+	background: linear-gradient(135deg, #11998e, #38ef7d);
+	color: white;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	font-size: 20px;
+	@include respond(bigmobile) {
+		font-size: 30px;
+	}
+	@include respond(tablet) {
+		font-size: 36px;
+	}
+}
+.level-13 {
+	background: linear-gradient(135deg, #f857a6, #ff5858);
+	color: white;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	font-size: 20px;
+	@include respond(bigmobile) {
+		font-size: 30px;
+	}
+	@include respond(tablet) {
+		font-size: 36px;
+	}
+}

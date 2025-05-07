@@ -1,0 +1,62 @@
+.message-list {
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1001;
+}
+.message-item {
+	color: #fff;
+	font-size: 12px;
+	max-width: 300px;
+	min-width: 150px;
+	background: #4caf50;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	padding: 10px 12px;
+	word-break: break-word;
+	display: flex;
+	justify-content: center;
+	&:not(:last-child) {
+		margin: 0 0 5px;
+	}
+
+	&.active {
+		animation: fadeIn 0.25s ease;
+	}
+	&.end {
+		animation: fadeOut 0.3s ease;
+	}
+
+	&.warn {
+		background-color: #f44336;
+	}
+	&.info {
+		background-color: #2196f3;
+	}
+
+	@keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 0.5;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+	@keyframes fadeOut {
+		0% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.5;
+		}
+
+		100% {
+			opacity: 0;
+		}
+	}
+}

@@ -1,0 +1,40 @@
+.content-width {
+	padding: 0 8px;
+}
+
+@media (min-width: 480px) {
+	.content-width {
+		padding: 0 24px;
+	}
+}
+
+@media (min-width: 768px) {
+	.content-width {
+		padding: 0 36px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.content-width {
+		width: 960px;
+		margin: 0 auto;
+	}
+}
+
+@media (min-width: 1280px) {
+	.content-width {
+		padding: 0;
+		width: 1120px;
+	}
+}
+
+body {
+	min-width: 320px;
+}
+
+.page {
+	min-height: 100%;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	overflow: hidden;
+}
