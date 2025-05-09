@@ -45,9 +45,7 @@ export class Game2048 {
 			if (this.animationManager.isAnimating || this.gameManager.isStop()) {
 				return;
 			}
-			e.preventDefault();
 			const key = e.key as KeyList;
-
 			switch (key) {
 				case KeyList.Up:
 					this.movement.move('up');
