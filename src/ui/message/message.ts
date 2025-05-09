@@ -20,12 +20,12 @@ class Message {
 }
 
 export class MessageList {
+	private static instance: MessageList;
 	private messageList: IMessageValue[] = [];
 	private readonly timeOut = 3000;
 	private messageId: number = 0;
 	private messageListEl: HTMLUListElement | null = document.querySelector('#message-list');
 
-	private static instance: MessageList;
 	private constructor() {}
 
 	public static getInstance(): MessageList {
@@ -54,6 +54,7 @@ export class MessageList {
 					message.el.remove();
 				}
 			};
+			
 			this.messageList = this.messageList.filter((message) => message.id !== id);
 			message.el.addEventListener('animationend', handleAnimationEnd);
 			message.el.classList.add('end');

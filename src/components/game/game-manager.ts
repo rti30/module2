@@ -9,20 +9,17 @@ import { GameOperation, IPromiseVoid, IStateDto } from './game-magager.interface
 import { Local } from '../local/local';
 
 export class GameManager {
+	private readonly recordManager = new RecordManager();
 	startY: number;
 	private step: number = 0;
 	private maxSteps = 5;
 	private state: IStateDto[] = [];
+
 	private gameMessageEl: HTMLDivElement | null = document.querySelector('.game-message');
 	private gameWinEl: HTMLDivElement | null = document.querySelector('.game-win');
-	private readonly recordManager = new RecordManager();
-
 	private gameContinueEl: HTMLDivElement | null = document.querySelector('.game-win__continue');
-
 	private gameOverEl: HTMLDivElement | null = document.querySelector('.game-over');
-
 	private buttonBackEl: HTMLButtonElement | null = document.querySelector('button#back');
-
 	private restartEl: HTMLButtonElement | null = document.querySelector('button#restart');
 	private restartElms: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.button-restart');
 
@@ -86,13 +83,16 @@ export class GameManager {
 		if (!this.state.length || !this.buttonBackEl) {
 			return;
 		}
+
 		e.preventDefault();
+
 		if (this.state[this.state.length - 1].op === 'start') {
 			this.state.pop();
 			if (!this.state.length) {
 				return;
 			}
 		}
+
 		const { mergedCells, fields, score, record } = this.state[this.state.length - 1];
 
 		this.state.pop();
@@ -107,7 +107,9 @@ export class GameManager {
 				this.board.fields[x][y].back();
 			});
 		}
+
 		this.saveInLocal();
+
 		if (!this.state.length) {
 			this.buttonBackEl.disabled = true;
 			return;

@@ -23,6 +23,7 @@ export class Movement {
 		});
 
 		const boardDirection = this.board.boardDirection[direction];
+
 		for (let i = 0; i < this.board.size; i++) {
 			let cellResolve: IPromisePromise = null;
 			const promise: IPromiseVoid = new Promise((resolve) => {
@@ -42,6 +43,7 @@ export class Movement {
 				}
 			});
 		}
+
 		if (this.wasMove) {
 			await this.animationManager.wait();
 			this.board.addNewValue();
@@ -70,10 +72,12 @@ export class Movement {
 
 			cell.value = 0;
 			prevCell.value = value;
+
 			if (cell.isNoMerge()) {
 				cell.allowMerge();
 				prevCell.denyMerge();
 			}
+
 			this.wasMove = true;
 			return j - 2;
 		}
@@ -89,6 +93,7 @@ export class Movement {
 			this.wasMove = true;
 			return j - 2;
 		}
+
 		return j;
 	}
 

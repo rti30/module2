@@ -1,4 +1,4 @@
-import { IGameParams, IRecord, IScore, KeyList } from './game2048.interface';
+import { IGameParams, KeyList } from './game2048.interface';
 import { Board } from '../board/board';
 import { Movement } from '../movement/movement';
 import { GameManager } from './game-manager';

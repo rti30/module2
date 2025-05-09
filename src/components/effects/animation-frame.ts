@@ -40,6 +40,7 @@ export class AnimationFrame {
 			cancelAnimationFrame(this.animationId);
 			this.animationId = null;
 		}
+
 		this.isRunning = false;
 		this.resolvePromise?.();
 		this.resolvePromise = null;
@@ -58,7 +59,6 @@ export class AnimationFrame {
 		const progress = Math.min(elapsed / this.duration, 1);
 		const deltaTime = timestamp - this.lastFrameTime;
 		this.lastFrameTime = timestamp;
-
 		this.callback(progress, deltaTime);
 
 		if (progress < 1) {

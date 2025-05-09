@@ -38,9 +38,11 @@ export class Cell {
 	public allowMerge(): void {
 		this.noMerge = false;
 	}
+
 	public isNoMerge() {
 		return this.noMerge;
 	}
+
 	private async render(): IPromiseVoid {
 		await this.animationPromise;
 		this.valueEl.textContent = this.isEmpty() ? '' : this._value.toString();

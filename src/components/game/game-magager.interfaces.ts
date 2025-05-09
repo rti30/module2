@@ -1,10 +1,8 @@
 import { Cell } from '../cell/cell';
 import { ICellDTO } from '../cell/cell.interface';
 import { IDirection } from '../movement/movement.interface';
-import { IScoreName } from '../score/score.interfaces';
 
 export type IPromiseVoid = Promise<void>;
-
 export type IPromisePromise = (() => void) | null;
 
 interface StartOperation {

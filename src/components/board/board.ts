@@ -1,7 +1,7 @@
 import { Cell } from '../cell/cell';
 import { ICellDTO } from '../cell/cell.interface';
 import { IDirection } from '../movement/movement.interface';
-import { IBoard, IBoardSize } from './board.inteface';
+import { IBoardSize } from './board.inteface';
 import { UseCssVariables } from '@/utils/use-css-variables';
 const NEW_VALUE_PROBABILITY = 0.9;
 

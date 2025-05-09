@@ -28,10 +28,12 @@ export class RecordManager {
 
 	public set userName(name: string) {
 		this._userName = name;
+
 		if (this.userNameEl) {
 			this.userNameEl.textContent = name;
 		}
 	}
+
 	get userName() {
 		return this._userName;
 	}
@@ -47,6 +49,7 @@ export class RecordManager {
 		if (this.startTime || this.processingStart) {
 			return;
 		}
+
 		try {
 			this.processingStart = true;
 			const req: IRequestScoreStart = {
@@ -54,12 +57,15 @@ export class RecordManager {
 			};
 			const res = await this.apiCliend.post<IResponseScoreStart>('/score/', req);
 			this.processingStart = false;
+
 			if (res.ok && res.data) {
 				const { username, _id, startTime } = res.data;
+
 				if (!startTime || !_id) {
 					this.messages.create('Ошибка соединения. Рекорд не будет зафиксирован', 'warn');
 					return;
 				}
+
 				this.startTime = startTime;
 				this._id = _id;
 				this.userName = username;
@@ -83,6 +89,7 @@ export class RecordManager {
 				startTime: this.startTime,
 			};
 			const res = await this.apiCliend.patch<IResponseScore>(`/score/${this._id}`, req);
+
 			if (res.ok) {
 				this.getAll();
 				this.reset();
@@ -97,6 +104,7 @@ export class RecordManager {
 	private async getAll() {
 		try {
 			const res = await this.apiCliend.get<IResponseScore[]>('/score/');
+
 			if (res.ok && res.data) {
 				this.scoreList = res.data;
 				this.render();
@@ -137,10 +145,22 @@ export class RecordManager {
 		const days = Math.floor(ms / (1000 * 60 * 60 * 24));
 
 		const parts = [];
-		if (days > 0) parts.push(`${days} дн.`);
-		if (hours > 0) parts.push(`${hours} ч.`);
-		if (minutes > 0) parts.push(`${minutes} мин.`);
-		if (seconds > 0) parts.push(`${seconds} сек.`);
+
+		if (days > 0) {
+			parts.push(`${days} дн.`);
+		}
+
+		if (hours > 0) {
+			parts.push(`${hours} ч.`);
+		}
+
+		if (minutes > 0) {
+			parts.push(`${minutes} мин.`);
+		}
+
+		if (seconds > 0) {
+			parts.push(`${seconds} сек.`);
+		}
 
 		return parts.join(' ') || '0 сек.';
 	}
@@ -149,6 +169,7 @@ export class RecordManager {
 		if (!this.scoreListEl) {
 			return;
 		}
+
 		this.scoreListEl.textContent = '';
 		this.scoreList
 			.sort((a, b) => a.duration - b.duration)
@@ -169,6 +190,7 @@ export class RecordManager {
 				const tdRecord = document.createElement('td');
 				tdRecord.classList.add('top-record__score');
 				tdRecord.textContent = this.formatLongDuration(duration);
+				
 				[tdRank, tdName, tdRecord].forEach((el) => {
 					tr.append(el);
 				});

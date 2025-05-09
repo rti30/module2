@@ -22,6 +22,7 @@ export class Score {
 				this.score += value;
 		}
 	}
+
 	public addRecord(value: number) {
 		switch (value) {
 			case 0:
@@ -35,6 +36,7 @@ export class Score {
 	set score(value: number) {
 		const oldValue = this._score;
 		this._score = value;
+
 		if (this._score > this.record) {
 			this.record = value;
 		}
@@ -50,6 +52,7 @@ export class Score {
 			useAfterAnimationScore(this.scoreValueEl, className),
 		).start();
 	}
+
 	get score() {
 		return this._score;
 	}
@@ -57,9 +60,11 @@ export class Score {
 	set record(value: number) {
 		const oldValue = this._record;
 		this._record = value;
+
 		if (!this.recordValueEl) {
 			return;
 		}
+
 		const className = this.getAnimationClassName(value, oldValue);
 		new AnimationFrame(
 			useAnimationScore(oldValue, value, this.recordValueEl, className),
@@ -67,6 +72,7 @@ export class Score {
 			useAfterAnimationScore(this.recordValueEl, className),
 		).start();
 	}
+
 	get record() {
 		return this._record;
 	}
