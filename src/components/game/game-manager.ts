@@ -29,7 +29,6 @@ export class GameManager {
 	constructor(
 		private readonly local: Local,
 		private readonly board: Board,
-		private readonly boardDirection: Record<IDirection, Cell[][]>,
 		private readonly animationManager: AnimationManager,
 		private readonly score: Score,
 	) {
@@ -117,7 +116,7 @@ export class GameManager {
 	};
 
 	public checkGame(): boolean {
-		for (const [_, board] of Object.entries(this.boardDirection)) {
+		for (const [_, board] of Object.entries(this.board.boardDirection)) {
 			for (const row of board) {
 				for (let j = 0; j < row.length; j++) {
 					const value = row[j].value;
@@ -231,5 +230,6 @@ export class GameManager {
 				cell.value = cell.value;
 			}),
 		);
+		this.board.boardDirection
 	}
 }

@@ -30,7 +30,6 @@ export class Game2048 {
 		this.gameManager = new GameManager(
 			this.local,
 			this.board,
-			this.board.boardDirection,
 			this.animationManager,
 			this.score,
 		);
