@@ -2,26 +2,26 @@
 	padding: 0 8px;
 }
 
-@media (min-width: 480px) {
+@include respond(bigmobile) {
 	.content-width {
 		padding: 0 24px;
 	}
 }
 
-@media (min-width: 768px) {
+@include respond(tablet) {
 	.content-width {
 		padding: 0 36px;
 	}
 }
 
-@media (min-width: 1024px) {
+@include respond(laptop) {
 	.content-width {
 		width: 960px;
 		margin: 0 auto;
 	}
 }
 
-@media (min-width: 1280px) {
+@include respond(desktop) {
 	.content-width {
 		padding: 0;
 		width: 1120px;
