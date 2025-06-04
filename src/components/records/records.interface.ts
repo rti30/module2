@@ -1,26 +1,23 @@
 export const USER_NAME_DEFAULT = 'User';
 
 export interface IRequestScoreStart {
-	username: string;
+	id?: string;
 }
 
-export interface IRequestScoreEnd {
+/* export interface IRequestScoreEnd {
 	startTime: string;
-}
+} */
 
 export interface IResponseScoreStart {
 	username: string;
-	startTime: string | null;
-	endTime: null;
-	duration: null;
+	time: null | number;
 	_id: string;
 	createdAt: string;
 	updatedAt: string;
-	__v: number;
 }
-type OmittedResponseEnd = Omit<IResponseScoreStart, 'duration' | 'endTime'>;
+type OmittedResponseEnd = Omit<IResponseScoreStart, 'time'>;
 
 export interface IResponseScore extends OmittedResponseEnd {
-	endTime: string;
-	duration: number;
+	time: number;
+	isRecord: boolean;
 }

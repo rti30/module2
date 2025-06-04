@@ -26,6 +26,8 @@ export class Board {
 			}
 			return acc;
 		}, []);
+		this._fields[0][1].value = 1024;
+		this._fields[0][0].value = 1024;
 		this.addNewValue();
 	}
 

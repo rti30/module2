@@ -2,7 +2,6 @@ import {
 	IResponseScore,
 	IResponseScoreStart,
 	IRequestScoreStart,
-	IRequestScoreEnd,
 	USER_NAME_DEFAULT,
 } from './records.interface';
 import { ApiClient } from '@/api/http-rest';
@@ -11,10 +10,9 @@ import { MessageList } from '@/ui/message/message';
 
 export class RecordManager {
 	private _userName: string = USER_NAME_DEFAULT;
-	private startTime: string | null = null;
 	private _id: string | null = null;
 	private scoreList: IResponseScore[];
-	private readonly apiCliend: ApiClient = new ApiClient('http://localhost:3000/api/v1');
+	private readonly apiCliend: ApiClient = new ApiClient('http://localhost:3001/api/v1');
 	private readonly storageServie: StorageService = new StorageService();
 	private processingStart = false;
 	private readonly ttl: number = 3600 * 24 * 7;
@@ -46,27 +44,28 @@ export class RecordManager {
 	public async start() {
 		this.getInLocal();
 
-		if (this.startTime || this.processingStart) {
+		if (this.processingStart) {
 			return;
 		}
 
 		try {
 			this.processingStart = true;
-			const req: IRequestScoreStart = {
-				username: this._userName,
-			};
-			const res = await this.apiCliend.post<IResponseScoreStart>('/score/', req);
+			const req: IRequestScoreStart = this._id
+				? {
+						id: this._id,
+					}
+				: {};
+			const res = await this.apiCliend.post<IResponseScoreStart>('/record/', req);
 			this.processingStart = false;
 
 			if (res.ok && res.data) {
-				const { username, _id, startTime } = res.data;
+				const { username, _id } = res.data;
 
-				if (!startTime || !_id) {
+				if (!_id) {
 					this.messages.create('Ошибка соединения. Рекорд не будет зафиксирован', 'warn');
 					return;
 				}
 
-				this.startTime = startTime;
 				this._id = _id;
 				this.userName = username;
 				this.saveStore();
@@ -80,20 +79,28 @@ export class RecordManager {
 	}
 
 	public async end() {
-		if (!this._id || !this.startTime) {
+		if (!this._id) {
 			this.messages.create('Ошибка, рекорд не зафиксирован(', 'warn');
 			return;
 		}
 		try {
-			const req: IRequestScoreEnd = {
-				startTime: this.startTime,
-			};
-			const res = await this.apiCliend.patch<IResponseScore>(`/score/${this._id}`, req);
-
+			const res = await this.apiCliend.patch<IResponseScore>(`/record/${this._id}`);
 			if (res.ok) {
 				this.getAll();
 				this.reset();
-				this.messages.create('Рекорд зафиксирован. Время прохождения:', 'info');
+				if (!res.data) {
+					this.messages.create('Нет данных о рекорде', 'warn');
+					throw new Error('Нет данных о рекорде');
+				}
+				const { isRecord, time } = res.data;
+				console.log(res.data);
+				
+				const timeGame = this.formatLongDuration(time);
+				if (isRecord) {
+					this.messages.create(`Рекорд зафиксирован. Время прохождения: ${timeGame}`, 'info');
+				} else {
+					this.messages.create(`Рекорд не побит! Время прохождения: ${timeGame}`, 'warn');
+				}
 			}
 		} catch (error) {
 			this.messages.create('Ошибка, рекорд не зафиксирован(', 'warn');
@@ -103,7 +110,7 @@ export class RecordManager {
 
 	private async getAll() {
 		try {
-			const res = await this.apiCliend.get<IResponseScore[]>('/score/');
+			const res = await this.apiCliend.get<IResponseScore[]>('/record/');
 
 			if (res.ok && res.data) {
 				this.scoreList = res.data;
@@ -115,27 +122,20 @@ export class RecordManager {
 	}
 
 	private async reset() {
-		this.startTime = null;
-		this._id = null;
-
-		this.storageServie.remove('_id');
-		this.storageServie.remove('startTime');
+		//? TODO пока оставил
 	}
 
 	public getInLocal() {
 		const local_id = this.storageServie.get('_id') as string | null;
-		const localStartTime = this.storageServie.get('startTime') as string | null;
 		const localUserName = this.storageServie.get('username') as string | null;
 
 		this._id = local_id ?? null;
-		this.startTime = localStartTime ?? null;
 		this.userName = localUserName ?? USER_NAME_DEFAULT;
 	}
 
 	public saveStore() {
 		this.storageServie.set('_id', this._id, this.ttl);
 		this.storageServie.set('username', this.userName, this.ttl);
-		this.storageServie.set('startTime', this.startTime, this.ttl);
 	}
 
 	private formatLongDuration(ms: number): string {
@@ -172,9 +172,9 @@ export class RecordManager {
 
 		this.scoreListEl.textContent = '';
 		this.scoreList
-			.sort((a, b) => a.duration - b.duration)
+			.sort((a, b) => a.time - b.time)
 			.forEach((score, i) => {
-				const { duration, username } = score;
+				const { time, username } = score;
 
 				const tr = document.createElement('tr');
 				tr.classList.add('top-record');
@@ -189,8 +189,8 @@ export class RecordManager {
 
 				const tdRecord = document.createElement('td');
 				tdRecord.classList.add('top-record__score');
-				tdRecord.textContent = this.formatLongDuration(duration);
-				
+				tdRecord.textContent = this.formatLongDuration(time);
+
 				[tdRank, tdName, tdRecord].forEach((el) => {
 					tr.append(el);
 				});
