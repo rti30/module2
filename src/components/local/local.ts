@@ -3,7 +3,7 @@ import { IScoreName } from '../score/score.interfaces';
 import { ICellDTO } from '../cell/cell.interface';
 
 export class Local {
-	private readonly storage: StorageService = new StorageService();
+	public readonly storage: StorageService = new StorageService();
 	private readonly ttl: number = 3600 * 24 * 7;
 
 	public setScore(name: IScoreName, value: number) {

@@ -43,7 +43,9 @@ export class RecordManager {
 
 	public async start() {
 		this.getInLocal();
-
+		if (this.storageServie.get('thisGameInStorage') && this._id) {
+			return;
+		}
 		if (this.processingStart) {
 			return;
 		}
@@ -94,7 +96,7 @@ export class RecordManager {
 				}
 				const { isRecord, time } = res.data;
 				console.log(res.data);
-				
+
 				const timeGame = this.formatLongDuration(time);
 				if (isRecord) {
 					this.messages.create(`Рекорд зафиксирован. Время прохождения: ${timeGame}`, 'info');

@@ -144,6 +144,7 @@ export class GameManager {
 	}
 
 	public restart = (): void => {
+		this.local.storage.remove('thisGameInStorage');
 		this.flagLoop = false;
 		this.flagStop = false;
 		this.state = [];
@@ -208,6 +209,10 @@ export class GameManager {
 	}
 
 	private getInLocal(): void {
+		if (!this.local.storage.has('_id')){
+			this.restart();
+		}
+		this.local.storage.remove('thisGameInStorage');
 		const localScore = this.local.getScore('score');
 		const localRecord = this.local.getScore('record');
 		this.score.record = localRecord ?? 0;
@@ -215,6 +220,7 @@ export class GameManager {
 		if (!localFields) {
 			return;
 		}
+		this.local.storage.set('thisGameInStorage', true);
 		const backFields = Board.fromDTO(localFields);
 		this.restoreFields(backFields);
 		this.score.score = localScore ?? 0;
@@ -230,6 +236,6 @@ export class GameManager {
 				cell.value = cell.value;
 			}),
 		);
-		this.board.boardDirection
+		this.board.boardDirection;
 	}
 }
